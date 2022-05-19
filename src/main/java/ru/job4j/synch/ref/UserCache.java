@@ -2,7 +2,6 @@ package ru.job4j.synch.ref;
 
 import net.jcip.annotations.NotThreadSafe;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,8 +20,9 @@ public class UserCache {
     }
 
     public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        users.values().forEach(value -> list.add(User.of(value.getName())));
-        return list;
+        return users.values()
+                .stream()
+                .map(value -> User.of(value.getName()))
+                .toList();
     }
 }
