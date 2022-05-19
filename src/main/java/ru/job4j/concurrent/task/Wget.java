@@ -51,14 +51,13 @@ public class Wget implements Runnable {
             index = 0;
         }
         float percent = (float) downloadData / size * 100;
-        String result = String.format("Загрузка%s%.0f%s", process[index++], percent, "%");
-        System.out.print("\r" + result);
+        System.out.printf("\rЗагрузка%s%.0f%s", process[index++], percent, "%");
         return index;
     }
 
     public static void main(String[] args) throws InterruptedException {
-        String url = args[0];
-        int speed = Integer.parseInt(args[1]);
+        String url = "https://proof.ovh.net/files/10Mb.dat";
+        int speed = 1024;
         Thread wget = new Thread(new Wget(url, speed));
         wget.start();
         wget.join();
