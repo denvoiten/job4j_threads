@@ -18,19 +18,26 @@ public class Wget implements Runnable {
     public void run() {
         try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("test")) {
-            byte[] dataBuffer = new byte[speed];
+            byte[] dataBuffer = new byte[1024];
             long size = new URL(url).openConnection().getContentLength();
             int bytesRead;
             int downloadData = 0;
+            int counter = 0;
             int index = 0;
+            long endTime;
             long startTime = System.currentTimeMillis();
-            while ((bytesRead = in.read(dataBuffer, 0, speed)) != -1) {
-                fileOutputStream.write(dataBuffer, 0, bytesRead);
-                long endTime = System.currentTimeMillis() - startTime;
+            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 downloadData += bytesRead;
-                index = showInfo(downloadData, size, index);
-                if (endTime < 1000) {
-                    Thread.sleep(1000 - endTime);
+                counter += bytesRead;
+                index = showInfo(counter, size, index);
+                fileOutputStream.write(dataBuffer, 0, bytesRead);
+                if (downloadData >= speed * 1024) {
+                    endTime = System.currentTimeMillis() - startTime;
+                    if (endTime < 1000) {
+                        Thread.sleep(1000 - endTime);
+                    }
+                    downloadData = 0;
+                    startTime = System.currentTimeMillis();
                 }
             }
         } catch (IOException | InterruptedException e) {
@@ -39,8 +46,8 @@ public class Wget implements Runnable {
     }
 
     private int showInfo(int downloadData, long size, int index) {
-        String[] process = {".    ", "..   ", "...  ", ".... "};
-        if (index == process.length) {
+        String[] process = {"     ", ".    ", "..   ", "...  ", ".... ", ""};
+        if (index == process.length - 1) {
             index = 0;
         }
         float percent = (float) downloadData / size * 100;
@@ -50,9 +57,6 @@ public class Wget implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        if (args.length != 2) {
-            throw new IllegalArgumentException("Not all arguments entered");
-        }
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
         Thread wget = new Thread(new Wget(url, speed));
