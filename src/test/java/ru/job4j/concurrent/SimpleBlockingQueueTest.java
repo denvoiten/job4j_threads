@@ -8,18 +8,25 @@ import static org.junit.Assert.assertTrue;
 
 public class SimpleBlockingQueueTest {
     private final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
-
     @Test
     public void when1Consumer1Producer() throws InterruptedException {
         Thread producer = new Thread(() -> {
             for (int i = 0; i < 10; i++) {
-                queue.offer(i);
+                try {
+                    queue.offer(i);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }, "Producer");
 
         Thread consumer = new Thread(() -> {
             for (int i = 0; i < 9; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }, "Consumer");
 
@@ -34,18 +41,30 @@ public class SimpleBlockingQueueTest {
     public void when2Consumer1Producer() throws InterruptedException {
         Thread producer = new Thread(() -> {
             for (int i = 0; i < 10; i++) {
-                queue.offer(i);
+                try {
+                    queue.offer(i);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }, "Producer");
 
         Thread consumer = new Thread(() -> {
             for (int i = 0; i < 5; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }, "Consumer");
         Thread consumer2 = new Thread(() -> {
             for (int i = 0; i < 5; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }, "Consumer2");
 
