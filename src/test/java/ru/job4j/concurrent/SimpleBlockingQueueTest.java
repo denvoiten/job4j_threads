@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class SimpleBlockingQueueTest {
     private final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+
     @Test
     public void when1Consumer1Producer() throws InterruptedException {
         Thread producer = new Thread(() -> {

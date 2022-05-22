@@ -16,7 +16,7 @@ public class SimpleBlockingQueue<T> {
 
     public synchronized void offer(T value) throws InterruptedException {
         while (queue.size() == MAX_SIZE) {
-                wait();
+            wait();
         }
         queue.offer(value);
         size++;
@@ -25,7 +25,7 @@ public class SimpleBlockingQueue<T> {
 
     public synchronized T poll() throws InterruptedException {
         while (queue.isEmpty()) {
-                wait();
+            wait();
         }
         T rsl = queue.poll();
         size--;
