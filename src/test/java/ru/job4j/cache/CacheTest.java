@@ -23,8 +23,8 @@ public class CacheTest {
         Base base2 = new Base(2, 1);
         assertTrue(cache.add(base));
         assertTrue(cache.add(base2));
-        cache.delete(new Base(2, 1));
-        cache.delete(new Base(1, 1));
+        cache.delete(base2);
+        cache.delete(base);
         assertTrue(cache.isEmpty());
     }
 
