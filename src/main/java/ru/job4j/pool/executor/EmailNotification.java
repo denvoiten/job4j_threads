@@ -16,6 +16,9 @@ public class EmailNotification {
         });
     }
 
+    public void send(String subject, String body, String email) {
+    }
+
     public void close() {
         pool.shutdown();
         while (!pool.isTerminated()) {
@@ -25,8 +28,5 @@ public class EmailNotification {
                 Thread.currentThread().interrupt();
             }
         }
-    }
-
-    public void send(String subject, String body, String email) {
     }
 }
