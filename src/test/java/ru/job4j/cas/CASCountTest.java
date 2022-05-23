@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class CASCountTest {
-    CASCount casCount = new CASCount();
+    private final CASCount casCount = new CASCount();
 
     @Test
     public void where0AndIncrementThen30() throws InterruptedException {
