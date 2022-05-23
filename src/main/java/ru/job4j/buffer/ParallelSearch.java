@@ -5,11 +5,11 @@ import ru.job4j.concurrent.SimpleBlockingQueue;
 public class ParallelSearch {
 
     public static void main(String[] args) {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(10);
         final Thread consumer = new Thread(
                 () -> {
                   try {
-                        while (true) {
+                        while (!Thread.currentThread().isInterrupted()) {
                             System.out.println(queue.poll());
                         }
                     } catch (InterruptedException e) {
