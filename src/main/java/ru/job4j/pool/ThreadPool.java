@@ -25,12 +25,8 @@ public class ThreadPool {
         threads.forEach(Thread::start);
     }
 
-    public synchronized void work(Runnable job) {
-        try {
+    public synchronized void work(Runnable job) throws InterruptedException {
             tasks.offer(job);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     public synchronized void shutdown() {
