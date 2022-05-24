@@ -9,9 +9,7 @@ public class ParallelIndexSearchTest {
     @Test
     public void whenArrayLengthLess10ThenFindIndex5() {
         Integer[] array = {1, 4, 7, 21, 3, 6, 8};
-        ParallelIndexSearch<Integer> parallelIndexSearch =
-                new ParallelIndexSearch<>(array, 0, array.length - 1, 21);
-        assertEquals(3, parallelIndexSearch.search(array, 21));
+        assertEquals(3, ParallelIndexSearch.search(array, 21));
     }
 
     @Test
@@ -20,9 +18,7 @@ public class ParallelIndexSearchTest {
         for (int i = 0; i < array.length; i++) {
             array[i] = i;
         }
-        ParallelIndexSearch<Integer> parallelIndexSearch =
-                new ParallelIndexSearch<>(array, 0, array.length - 1, 99);
-        assertEquals(99, parallelIndexSearch.search(array, 99));
+        assertEquals(99, ParallelIndexSearch.search(array, 99));
     }
 
     @Test
@@ -31,9 +27,7 @@ public class ParallelIndexSearchTest {
         for (int i = 0; i < array.length; i++) {
             array[i] = (char) i;
         }
-        ParallelIndexSearch<Character> parallelIndexSearch =
-                new ParallelIndexSearch<>(array, 0, array.length - 1, 'c');
-        assertEquals(99, parallelIndexSearch.search(array, 'c'));
+        assertEquals(99, ParallelIndexSearch.search(array, 'c'));
     }
 
     @Test
@@ -42,8 +36,12 @@ public class ParallelIndexSearchTest {
         for (int i = 0; i < array.length; i++) {
             array[i] = (char) i;
         }
-        ParallelIndexSearch<Character> parallelIndexSearch =
-                new ParallelIndexSearch<>(array, 0, array.length - 1, 'Ы');
-        assertEquals(-1, parallelIndexSearch.search(array, 'Ы'));
+        assertEquals(-1, ParallelIndexSearch.search(array, 'Ы'));
+    }
+
+    @Test
+    public void whenArrayOfString() {
+        String[] array = {"Первый", "Второй", "Третий", "Четвертый", "Пятый", "Шестой", "Седьмой"};
+        assertEquals(6, ParallelIndexSearch.search(array, "Седьмой"));
     }
 }

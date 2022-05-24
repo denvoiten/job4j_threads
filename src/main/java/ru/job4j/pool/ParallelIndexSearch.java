@@ -19,15 +19,8 @@ public class ParallelIndexSearch<T> extends RecursiveTask<Integer> {
 
     @Override
     protected Integer compute() {
-        int rsl = -1;
         if (to - from <= 10) {
-            for (int i = 0; i < array.length; i++) {
-                if (array[i].equals(el)) {
-                    rsl = i;
-                    break;
-                }
-            }
-            return rsl;
+            return getIndex();
         }
         int mid = (from + to) / 2;
         ParallelIndexSearch<T> leftParallelSearch =
@@ -39,7 +32,18 @@ public class ParallelIndexSearch<T> extends RecursiveTask<Integer> {
         return Math.max(leftParallelSearch.join(), rightParallelSearch.join());
     }
 
-    public int search(T[] array, T el) {
+    private int getIndex() {
+        int rsl = -1;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(el)) {
+                rsl = i;
+                break;
+            }
+        }
+        return rsl;
+    }
+
+    public static <T> int search(T[] array, T el) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         return forkJoinPool.invoke(new ParallelIndexSearch<>(array, 0, array.length - 1, el));
     }
