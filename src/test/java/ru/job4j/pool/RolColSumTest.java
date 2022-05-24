@@ -17,21 +17,23 @@ public class RolColSumTest {
 
     @Test
     public void whenAsyncSum() throws ExecutionException, InterruptedException {
-        assertThat(asyncSum(matrix)[0].getRowSum(), equalTo(44));
-        assertThat(asyncSum(matrix)[0].getColSum(), equalTo(9));
-        assertThat(asyncSum(matrix)[1].getRowSum(), equalTo(25));
-        assertThat(asyncSum(matrix)[1].getColSum(), equalTo(46));
-        assertThat(asyncSum(matrix)[2].getRowSum(), equalTo(26));
-        assertThat(asyncSum(matrix)[2].getColSum(), equalTo(40));
+        RolColSum.Sums[] sums = asyncSum(matrix);
+        assertThat(sums[0].getRowSum(), equalTo(44));
+        assertThat(sums[0].getColSum(), equalTo(9));
+        assertThat(sums[1].getRowSum(), equalTo(25));
+        assertThat(sums[1].getColSum(), equalTo(46));
+        assertThat(sums[2].getRowSum(), equalTo(26));
+        assertThat(sums[2].getColSum(), equalTo(40));
     }
 
     @Test
     public void whenSums() {
-        assertThat(sum(matrix)[0].getRowSum(), equalTo(44));
-        assertThat(sum(matrix)[0].getColSum(), equalTo(9));
-        assertThat(sum(matrix)[1].getRowSum(), equalTo(25));
-        assertThat(sum(matrix)[1].getColSum(), equalTo(46));
-        assertThat(sum(matrix)[2].getRowSum(), equalTo(26));
-        assertThat(sum(matrix)[2].getColSum(), equalTo(40));
+        RolColSum.Sums[] sums = sum(matrix);
+        assertThat(sums[0].getRowSum(), equalTo(44));
+        assertThat(sums[0].getColSum(), equalTo(9));
+        assertThat(sums[1].getRowSum(), equalTo(25));
+        assertThat(sums[1].getColSum(), equalTo(46));
+        assertThat(sums[2].getRowSum(), equalTo(26));
+        assertThat(sums[2].getColSum(), equalTo(40));
     }
 }
