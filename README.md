@@ -14,3 +14,5 @@ Java Memory Model
 Неблокирующие алгоритмы
 
 Потокобезопасные коллекции
+
+Runnable and Callable
