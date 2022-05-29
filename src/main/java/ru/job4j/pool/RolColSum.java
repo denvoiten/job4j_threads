@@ -13,13 +13,21 @@ public class RolColSum {
             this.colSum = colSum;
         }
 
-        public int getRowSum() {
-            return rowSum;
-        }
-
         public int getColSum() {
             return colSum;
         }
+
+        public int getRowSum() {
+            return rowSum;
+        }
+    }
+
+    public static Sums[] sum(int[][] matrix) {
+        Sums[] rsl = new Sums[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            rsl[i] = getSum(matrix, i);
+        }
+        return rsl;
     }
 
     private static Sums getSum(int[][] matrix, int index) {
@@ -32,12 +40,8 @@ public class RolColSum {
         return new Sums(rowSum, colSum);
     }
 
-    public static Sums[] sum(int[][] matrix) {
-        Sums[] rsl = new Sums[matrix.length];
-        for (int i = 0; i < matrix.length; i++) {
-            rsl[i] = getSum(matrix, i);
-        }
-        return rsl;
+    private static CompletableFuture<Sums> getTask(int[][] matrix, int index) {
+        return CompletableFuture.supplyAsync(() -> getSum(matrix, index));
     }
 
     public static Sums[] asyncSum(int[][] matrix) throws InterruptedException, ExecutionException {
@@ -46,9 +50,5 @@ public class RolColSum {
             rsl[i] = getTask(matrix, i).get();
         }
         return rsl;
-    }
-
-    private static CompletableFuture<Sums> getTask(int[][] matrix, int index) {
-        return CompletableFuture.supplyAsync(() -> getSum(matrix, index));
     }
 }
