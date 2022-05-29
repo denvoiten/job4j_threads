@@ -40,15 +40,15 @@ public class RolColSum {
         return new Sums(rowSum, colSum);
     }
 
-    private static CompletableFuture<Sums> getTask(int[][] matrix, int index) {
-        return CompletableFuture.supplyAsync(() -> getSum(matrix, index));
-    }
-
     public static Sums[] asyncSum(int[][] matrix) throws InterruptedException, ExecutionException {
         Sums[] rsl = new Sums[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
             rsl[i] = getTask(matrix, i).get();
         }
         return rsl;
+    }
+
+    private static CompletableFuture<Sums> getTask(int[][] matrix, int index) {
+        return CompletableFuture.supplyAsync(() -> getSum(matrix, index));
     }
 }
