@@ -16,8 +16,8 @@ public class RolColSumTest {
             {1, 5, 20}};
 
     @Test
-    public void whenAsyncSum() throws ExecutionException, InterruptedException {
-        RolColSum.Sums[] sums = asyncSum(matrix);
+    public void whenSums() {
+        RolColSum.Sums[] sums = sum(matrix);
         assertThat(sums[0].getRowSum(), equalTo(44));
         assertThat(sums[0].getColSum(), equalTo(9));
         assertThat(sums[1].getRowSum(), equalTo(25));
@@ -27,8 +27,8 @@ public class RolColSumTest {
     }
 
     @Test
-    public void whenSums() {
-        RolColSum.Sums[] sums = sum(matrix);
+    public void whenAsyncSum() throws ExecutionException, InterruptedException {
+        RolColSum.Sums[] sums = asyncSum(matrix);
         assertThat(sums[0].getRowSum(), equalTo(44));
         assertThat(sums[0].getColSum(), equalTo(9));
         assertThat(sums[1].getRowSum(), equalTo(25));
